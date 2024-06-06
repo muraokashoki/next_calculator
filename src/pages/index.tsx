@@ -15,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <a href="calculator">電卓</a>
+        <a href="calculator" className="text-3xl font-bold">電卓</a>
       </main>
     </>
   );
