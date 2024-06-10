@@ -100,7 +100,7 @@ export default function ButtonPanel(props: {
           onClick={() => props.calculatorBtn("/")}
           className="m-2 bg-gray-500 w-12 h-12"
         >
-          /
+          ÷
         </button>
         <button
           onClick={() => props.calculatorBtn(".")}
