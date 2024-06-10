@@ -1,4 +1,6 @@
-export default function Buttanpanel(props: {
+import React from "react";
+
+export default function ButtonPanel(props: {
   calculatorBtn: (code: string) => void;
 }) {
   return (
@@ -107,9 +109,13 @@ export default function Buttanpanel(props: {
           .
         </button>
       </div>
-
-      <div className="m-2 d-">
-        <button className="bg-gray-500 w-full h-12">C</button>
+      <div className="m-2">
+        <button
+          onClick={() => props.calculatorBtn("C")}
+          className="bg-gray-500 w-full h-12"
+        >
+          C
+        </button>
       </div>
     </div>
   );

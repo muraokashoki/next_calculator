@@ -1,24 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import Display from "./display";
-import Buttanpanel from "./buttanpanel";
-import { useState } from "react";
-import { calculate, State } from "../scripts/calculate";
-export default function calculator() {
-  const [state, setState] = useState({
+import ButtonPanel from "./buttanpanel"; // Fix typo: "buttanpanel" -> "buttonpanel"
+import calculate from "../scripts/calculate"; // Fix import: remove curly braces
+import type { State } from "../scripts/calculate"; // Stateの型宣言を追加
+
+export default function Calculator() {
+  const [state, setState] = useState<State>({
     current: "0",
     operand: 0,
     operator: null,
     isNextClear: false,
   });
+
   const calculatorBtn = (code: string) => {
-    const nextState = calculate(state);
+    const nextState = calculate(code, state);
+    console.log("Next state:", nextState);
     setState(nextState);
   };
+
   return (
     <>
       <div>
-        <Display />
-        <Buttanpanel calculatorBtn={calculatorBtn} />
+        <Display value={state.current} />
+        <ButtonPanel calculatorBtn={calculatorBtn} />
       </div>
     </>
   );
