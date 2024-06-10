@@ -119,7 +119,7 @@ function handleEqualButton(state: State): State {
 
   const nextValue = operate(state);
   return {
-    current: `${nextValue}`,
+    current: formatNumber(nextValue),
     operand: nextValue,
     operator: null,
     isNextClear: true,
@@ -142,4 +142,8 @@ function operate(state: State): number {
     return state.operand / current;
   }
   return current;
+}
+
+function formatNumber(num: number): string {
+  return parseFloat(num.toFixed(10)).toString();
 }
