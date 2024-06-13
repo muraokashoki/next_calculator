@@ -1,3 +1,20 @@
+export interface State {
+  current: string;
+  operand: number;
+  operator: string | null;
+  isNextClear: boolean;
+  selectedOperator: string | null;
+}
+
+// 初期のstateオブジェクト例
+const initialState: State = {
+  current: "",
+  operand: 0,
+  operator: null,
+  isNextClear: false,
+  selectedOperator: null, // nullで初期化
+};
+
 export default function calculate(button: string, state: State): State {
   if (isNumber(button)) {
     return handleNumberButton(button, state);
@@ -20,25 +37,18 @@ export default function calculate(button: string, state: State): State {
   return state;
 }
 
-export interface State {
-  current: string;
-  operand: number;
-  operator: string | null;
-  isNextClear: boolean;
-  selectedOperator: string | null;
-}
-
 function isNumber(button: string) {
   return "0123456789".includes(button);
 }
 
-function handleNumberButton(button: string, state: State) {
+function handleNumberButton(button: string, state: State): State {
   if (state.isNextClear) {
     return {
       current: button,
       operand: state.operand,
       operator: state.operator,
       isNextClear: false,
+      selectedOperator: state.selectedOperator,
     };
   }
 
@@ -48,6 +58,7 @@ function handleNumberButton(button: string, state: State) {
       operand: state.operand,
       operator: state.operator,
       isNextClear: false,
+      selectedOperator: state.selectedOperator,
     };
   }
 
@@ -56,6 +67,7 @@ function handleNumberButton(button: string, state: State) {
     operand: state.operand,
     operator: state.operator,
     isNextClear: false,
+    selectedOperator: state.selectedOperator,
   };
 }
 
@@ -87,7 +99,7 @@ function isDot(button: string) {
   return button === ".";
 }
 
-function handleDotButton(state: State) {
+function handleDotButton(state: State): State {
   if (state.current.includes(".")) {
     return state;
   }
@@ -96,6 +108,7 @@ function handleDotButton(state: State) {
     operand: state.operand,
     operator: state.operator,
     isNextClear: false,
+    selectedOperator: state.selectedOperator,
   };
 }
 
@@ -103,12 +116,13 @@ function isClear(button: string) {
   return button === "C";
 }
 
-function handleClearButton(state: State) {
+function handleClearButton(state: State): State {
   return {
     current: "0",
     operand: 0,
     operator: null,
     isNextClear: false,
+    selectedOperator: null,
   };
 }
 
@@ -127,25 +141,25 @@ function handleEqualButton(state: State): State {
     operand: nextValue,
     operator: null,
     isNextClear: true,
+    selectedOperator: null,
   };
 }
 
 function operate(state: State): number {
   const current = parseFloat(state.current);
 
-  if (state.operator === "+") {
-    return state.operand + current;
+  switch (state.operator) {
+    case "+":
+      return state.operand + current;
+    case "-":
+      return state.operand - current;
+    case "*":
+      return state.operand * current;
+    case "/":
+      return state.operand / current;
+    default:
+      return current;
   }
-  if (state.operator === "-") {
-    return state.operand - current;
-  }
-  if (state.operator === "*") {
-    return state.operand * current;
-  }
-  if (state.operator === "/") {
-    return state.operand / current;
-  }
-  return current;
 }
 
 function formatNumber(num: number): string {

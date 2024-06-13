@@ -140,7 +140,7 @@ export default function ButtonPanel(props: {
           onClick={() => handleClick("/")}
           className={getButtonClass("/")}
         >
-          /
+          ÷
         </button>
         <button
           onClick={() => handleClick(".")}
