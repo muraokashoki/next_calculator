@@ -23,11 +23,11 @@ export default function ButtonPanel(props: {
 
   const getButtonClass = (operator: string) => {
     if (props.selectedOperator === operator) {
-      return "m-2 bg-yellow-500 w-12 h-12";
+      return "m-2 bg-yellow-500 w-6 md:w-12 h-6 md:h-12";
     } else if (clickedButton === operator) {
-      return "m-2 bg-green-500 w-12 h-12"; // クリック時の色
+      return "m-2 bg-green-500 w-6 md:w-12 h-6 md:h-12"; // クリック時の色
     } else {
-      return "m-2 bg-gray-500 w-12 h-12";
+      return "m-2 bg-gray-500 w-6 md:w-12 h-6 md:h-12";
     }
   };
 
@@ -35,11 +35,11 @@ export default function ButtonPanel(props: {
     if (number === "C" && clickedButton === "C") {
       return "bg-yellow-500 w-full h-12"; // "C"ボタンがクリックされたときのスタイル
     } else if (clickedButton === number) {
-      return "m-2 bg-yellow-500 w-12 h-12"; // 他のボタンがクリックされたときのスタイル
+      return "m-2 bg-yellow-500 w-6 md:w-12 h-6 md:h-12"; // 他のボタンがクリックされたときのスタイル
     } else if (number === "C") {
       return "bg-gray-500 w-full h-12"; // "C"ボタンの通常スタイル
     } else {
-      return "m-2 bg-gray-500 w-12 h-12"; // 他のボタンの通常スタイル
+      return "m-2 bg-gray-500 w-6 md:w-12 h-6 md:h-12"; // 他のボタンの通常スタイル
     }
   };
 
