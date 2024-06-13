@@ -1,11 +1,27 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import React, { useState } from "react";
+import Display from "../components/display";
+import ButtonPanel from "../components/buttanpanel"; // Fix typo: "buttanpanel" -> "buttonpanel"
+import calculate from "../scripts/calculate"; // Fix import: remove curly braces
+import type { State } from "../scripts/calculate"; //
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [state, setState] = useState<State>({
+    current: "0",
+    operand: 0,
+    operator: null,
+    isNextClear: false,
+    selectedOperator: null,
+  });
+
+  const calculatorBtn = (code: string) => {
+    const nextState = calculate(code, state);
+    setState(nextState);
+  };
   return (
     <>
       <Head>
@@ -15,10 +31,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
-        <a href="calculator" className="text-3xl font-bold">
-          電卓
-        </a>
-        <p>deployテスト</p>
+        <div>
+          <Display value={state.current} />
+          <ButtonPanel
+            calculatorBtn={calculatorBtn}
+            selectedOperator={state.selectedOperator}
+          />
+        </div>
       </main>
     </>
   );
