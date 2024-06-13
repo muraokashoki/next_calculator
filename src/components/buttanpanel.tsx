@@ -5,27 +5,27 @@ export default function ButtonPanel(props: {
   selectedOperator: string | null;
 }) {
   const [clickedButton, setClickedButton] = useState<string | null>(null);
-
   useEffect(() => {
     if (clickedButton !== null) {
       const timer = setTimeout(() => {
         setClickedButton(null);
       }, 200); // 200ミリ秒後に背景色を元に戻す
-
       return () => clearTimeout(timer);
     }
   }, [clickedButton]);
 
+  // クリックされたボタンのコードをcalculatorBtnにセットする
   const handleClick = (code: string) => {
     setClickedButton(code);
     props.calculatorBtn(code);
   };
 
+  // ボタンをクリックしたときのスタイルの調整
   const getButtonClass = (operator: string) => {
     if (props.selectedOperator === operator) {
       return "m-2 bg-yellow-500 w-6 md:w-12 h-6 md:h-12";
     } else if (clickedButton === operator) {
-      return "m-2 bg-green-500 w-6 md:w-12 h-6 md:h-12"; // クリック時の色
+      return "m-2 bg-green-500 w-6 md:w-12 h-6 md:h-12";
     } else {
       return "m-2 bg-gray-500 w-6 md:w-12 h-6 md:h-12";
     }
@@ -33,13 +33,13 @@ export default function ButtonPanel(props: {
 
   const getNumberButtonClass = (number: string) => {
     if (number === "C" && clickedButton === "C") {
-      return "bg-yellow-500 w-full h-12"; // "C"ボタンがクリックされたときのスタイル
+      return "bg-yellow-500 w-full h-12";
     } else if (clickedButton === number) {
-      return "m-2 bg-yellow-500 w-6 md:w-12 h-6 md:h-12"; // 他のボタンがクリックされたときのスタイル
+      return "m-2 bg-yellow-500 w-6 md:w-12 h-6 md:h-12";
     } else if (number === "C") {
-      return "bg-gray-500 w-full h-12"; // "C"ボタンの通常スタイル
+      return "bg-gray-500 w-full h-12";
     } else {
-      return "m-2 bg-gray-500 w-6 md:w-12 h-6 md:h-12"; // 他のボタンの通常スタイル
+      return "m-2 bg-gray-500 w-6 md:w-12 h-6 md:h-12";
     }
   };
 

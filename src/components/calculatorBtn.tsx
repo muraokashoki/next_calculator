@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Display from "./display";
-import ButtonPanel from "./buttanpanel"; // Fix typo: "buttanpanel" -> "buttonpanel"
-import calculate from "../scripts/calculate"; // Fix import: remove curly braces
-import type { State } from "../scripts/calculate"; // Stateの型宣言を追加
+import ButtonPanel from "./buttanpanel";
+import calculate from "../scripts/calculate";
+import type { State } from "../scripts/calculate";
 
 export default function Calculator() {
+  // useStateでコンポーネント状態を管理し、setStateで状態を更新する
   const [state, setState] = useState<State>({
     current: "0",
     operand: 0,
@@ -13,6 +14,7 @@ export default function Calculator() {
     selectedOperator: null,
   });
 
+  // ボタンがクリックされたときにnextStateが計算され、setStateでnextStateに渡される
   const calculatorBtn = (code: string) => {
     const nextState = calculate(code, state);
     setState(nextState);
