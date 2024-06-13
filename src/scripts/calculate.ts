@@ -1,5 +1,4 @@
-export default function calculate(button: string, state: State) {
-  // ボタンの判別
+export default function calculate(button: string, state: State): State {
   if (isNumber(button)) {
     return handleNumberButton(button, state);
   }
@@ -13,7 +12,10 @@ export default function calculate(button: string, state: State) {
     return handleClearButton(state);
   }
   if (isEqual(button)) {
-    return handleEqualButton(state);
+    return {
+      ...handleEqualButton(state),
+      selectedOperator: null,
+    };
   }
   return state;
 }
@@ -23,6 +25,7 @@ export interface State {
   operand: number;
   operator: string | null;
   isNextClear: boolean;
+  selectedOperator: string | null;
 }
 
 function isNumber(button: string) {
@@ -60,22 +63,23 @@ function isOperator(button: string) {
   return "+-*/".includes(button);
 }
 
-function handleOperatorButton(button: string, state: State) {
-  if (state.operator === null) {
+function handleOperatorButton(button: string, state: State): State {
+  if (state.operator === null || state.isNextClear) {
     return {
-      current: state.current,
+      ...state,
       operand: parseFloat(state.current),
       operator: button,
       isNextClear: true,
+      selectedOperator: button,
     };
   }
-
   const nextValue = operate(state);
   return {
     current: `${nextValue}`,
     operand: nextValue,
     operator: button,
     isNextClear: true,
+    selectedOperator: button,
   };
 }
 

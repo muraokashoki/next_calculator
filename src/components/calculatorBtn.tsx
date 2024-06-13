@@ -10,11 +10,11 @@ export default function Calculator() {
     operand: 0,
     operator: null,
     isNextClear: false,
+    selectedOperator: null,
   });
 
   const calculatorBtn = (code: string) => {
     const nextState = calculate(code, state);
-    console.log("Next state:", nextState);
     setState(nextState);
   };
 
@@ -22,7 +22,10 @@ export default function Calculator() {
     <>
       <div>
         <Display value={state.current} />
-        <ButtonPanel calculatorBtn={calculatorBtn} />
+        <ButtonPanel
+          calculatorBtn={calculatorBtn}
+          selectedOperator={state.selectedOperator}
+        />
       </div>
     </>
   );
